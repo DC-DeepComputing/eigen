@@ -23,10 +23,6 @@ namespace internal {
 template <>
 struct gebp_traits<float, float, false, false, Architecture::RVV10, GEBPPacketFull>
     : gebp_traits<float, float, false, false, Architecture::Generic, GEBPPacketFull> {
-  // Reduce M register-block to 2 row-packets: 16 of 32 vector regs for
-  // accumulators (was 24), avoiding spills on VLEN=256. Measured +9..22%
-  // on GEMM; end-to-end +9..14%.
-  enum { mr = 2 * LhsPacketSize };
   using RhsPacket = float;
   using RhsPacketx4 = QuadPacket<float>;
   EIGEN_STRONG_INLINE void loadRhs(const RhsScalar* b, RhsPacket& dest) const { dest = pset1<RhsPacket>(*b); }
@@ -80,10 +76,6 @@ struct gebp_traits<float, float, false, false, Architecture::RVV10, GEBPPacketFu
 template <>
 struct gebp_traits<double, double, false, false, Architecture::RVV10, GEBPPacketFull>
     : gebp_traits<double, double, false, false, Architecture::Generic, GEBPPacketFull> {
-  // Reduce M register-block to 2 row-packets: 16 of 32 vector regs for
-  // accumulators (was 24), avoiding spills on VLEN=256. Measured +9..22%
-  // on GEMM; end-to-end +9..14%.
-  enum { mr = 2 * LhsPacketSize };
   using RhsPacket = double;
   using RhsPacketx4 = QuadPacket<double>;
   EIGEN_STRONG_INLINE void loadRhs(const RhsScalar* b, RhsPacket& dest) const { dest = pset1<RhsPacket>(*b); }
