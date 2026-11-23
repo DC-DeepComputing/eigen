@@ -54,7 +54,7 @@
 #if defined(__riscv)
 // Defines the default LMUL for RISC-V
 #ifndef EIGEN_RISCV64_DEFAULT_LMUL
-#define EIGEN_RISCV64_DEFAULT_LMUL 1
+#define EIGEN_RISCV64_DEFAULT_LMUL 2
 #endif
 #endif
 
